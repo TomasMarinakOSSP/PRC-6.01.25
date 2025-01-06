@@ -13,7 +13,7 @@ USE `library_catalog`;
 
 DROP TABLE IF EXISTS `books`;
 CREATE TABLE `books` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `author` varchar(255) NOT NULL,
   `price` int NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE `books` (
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `books_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `books` (`id`, `title`, `author`, `price`, `category_id`, `year`) VALUES
 (1,	'To Kill a Mockingbird',	'Harper Lee',	399,	1,	'1960-07-11'),
@@ -54,4 +54,4 @@ INSERT INTO `category` (`id`, `category_name`) VALUES
 (7,	'Filozofie / Duchovní')
 ON DUPLICATE KEY UPDATE `id` = VALUES(`id`), `category_name` = VALUES(`category_name`);
 
--- 2025-01-06 12:40:10
+-- 2025-01-06 12:51:19
