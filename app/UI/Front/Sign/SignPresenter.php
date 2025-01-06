@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Sign;
+namespace App\UI\Front\Sign;
 
 use App\Model\DuplicateNameException;
 use App\Model\UserFacade;
@@ -53,7 +53,7 @@ final class SignPresenter extends Nette\Application\UI\Presenter
 				// Attempt to login user
 				$this->getUser()->login($data->username, $data->password);
 				$this->restoreRequest($this->backlink);
-				$this->redirect('Dashboard:');
+				$this->redirect('Home:');
 			} catch (Nette\Security\AuthenticationException) {
 				$form->addError('The username or password you entered is incorrect.');
 			}
@@ -88,7 +88,7 @@ final class SignPresenter extends Nette\Application\UI\Presenter
 			try {
 				// Attempt to register a new user
 				$this->userFacade->add($data->username, $data->email, $data->password);
-				$this->redirect('Dashboard:');
+				$this->redirect('Home:');
 			} catch (DuplicateNameException) {
 				// Handle the case where the username is already taken
 				$form['username']->addError('Username is already taken.');

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Dashboard;
+namespace App\UI\Admin\Dashboard;
 
 use App\UI\Accessory\RequireLoggedUser;
 use Nette;
