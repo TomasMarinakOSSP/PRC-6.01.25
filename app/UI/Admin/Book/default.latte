@@ -1,0 +1,67 @@
+{block content}
+<h1>Přidat festival</h1>
+
+<!-- Vložení Quill stylů a skriptů -->
+<link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+
+<!-- Formulář -->
+<form n:name="addBookForm" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+         <label for="title" class="form-label">Název knihy:</label>
+        <input type="text" name="title" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="description" class="form-label">Popis Knihy:</label>
+        <!-- Quill kontejner -->
+        <div id="toolbar">
+            <button class="ql-bold"></button>
+            <button class="ql-italic"></button>
+            <button class="ql-underline"></button>
+            <select class="ql-header">
+                <option selected></option>
+                <option value="1">Nadpis 1</option>
+                <option value="2">Nadpis 2</option>
+            </select>
+        </div>
+        <div id="editor-container" style="height: 200px; border: 1px solid #ccc;"></div>
+        <!-- Skrytý input pro uložení obsahu Quill -->
+<textarea id="description" name="description" style="visibility: hidden; height: 0;" ></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="author" class="form-label">Autor:</label>
+        <input type="date" name="author" class="form-control" required>
+    </div>
+    
+    <div class="mb-3">
+        <label for="year" class="form-label">Rok vydání:</label>
+        <input type="text" name="year" class="form-control" autocomplete="off" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Odeslat</button>
+</form>
+
+<script>
+document.querySelector('form').addEventListener('submit', function (e) {
+    const descriptionInput = document.getElementById('description');
+    descriptionInput.value = quill.root.innerHTML;
+    console.log("Odesílání formuláře...", descriptionInput.value); // Debugging
+});
+
+    var quill = new Quill('#editor-container', {
+        theme: 'snow', // Styl editoru
+        modules: {
+            toolbar: '#toolbar' // Nástroje
+        }
+    });
+
+    // Synchronizace obsahu Quill s textarea při odeslání formuláře
+    document.querySelector('form').addEventListener('submit', function (e) {
+        // Najde textarea a vloží do ní obsah z Quill editoru
+        const descriptionInput = document.getElementById('description');
+        descriptionInput.value = quill.root.innerHTML;
+    });
+</script>
+{/block}

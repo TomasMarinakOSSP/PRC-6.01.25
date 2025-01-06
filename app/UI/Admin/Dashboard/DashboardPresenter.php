@@ -1,8 +1,8 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\UI\Admin\Dashboard;
+
 
 use App\UI\Accessory\RequireLoggedUser;
 use Nette;
@@ -14,6 +14,7 @@ use Nette;
  */
 final class DashboardPresenter extends Nette\Application\UI\Presenter
 {
+
 	// Incorporates methods to check user login status
-	use RequireLoggedUser;
+    use RequireLoggedUser;
 }
