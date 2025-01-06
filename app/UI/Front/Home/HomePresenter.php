@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\UI\Front\Home;
 
-use App\UI\Accessory\RequireLoggedUser;
 use Nette;
 
 
@@ -14,6 +13,14 @@ use Nette;
  */
 final class HomePresenter extends Nette\Application\UI\Presenter
 {
+	public function __construct(
+		private Nette\Database\Explorer $database,
+	) {
+	}
+	public function renderDefault(): void
+    {
+        $this->template->books = $this->database->table('books')->fetchAll();
+    }
 	// Incorporates methods to check user login status
-	use RequireLoggedUser;
+	
 }

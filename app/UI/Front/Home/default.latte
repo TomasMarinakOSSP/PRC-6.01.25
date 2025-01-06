@@ -1,5 +1,19 @@
 {block content}
 <h1>Front Page</h1>
 
-
 <p>(<a n:href="Sign:out">Sign out</a>)</p>
+
+<h2>Seznam knih</h2>
+<ul>
+{foreach $books as $book}
+    <li>
+        <strong>{$book->title}</strong><br>
+        Autor: {$book->author}<br>
+        Cena: {$book->price} Kč<br>
+        Rok vydání: {$book->year|date:'Y'}<br>
+        Popis: {$book->description}<br>
+        Kategorie: {$book->category->category_name}
+    </li>
+{/foreach}
+</ul>
+{/block}

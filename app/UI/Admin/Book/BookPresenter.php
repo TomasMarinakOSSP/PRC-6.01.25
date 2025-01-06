@@ -25,57 +25,60 @@ class BookPresenter extends Nette\Application\UI\Presenter
             'title' => $book->title,
             'author' => $book->author,
             'price' => $book->price,
-            'year' => $book->year,
+            'year' => $book->year->format('Y-m-d'),
             'description' => $book->description,
             'category' => $book->category_id,
         ]);
     }
     public function createComponentAddBookForm(): Form
-    {
-        $form = new Form;
-    
-        $form->addText('title', 'Název knihy:')
-            ->setRequired('Zadejte název knihy.');
-    
-        $form->addText('author', 'Autor:')
-            ->setRequired('Zadejte autora knihy.');
-    
-        $form->addText('price', 'Cena:')
-            ->setRequired('Zadejte cenu knihy.')
-            ->addRule(Form::FLOAT, 'Cena musí být číslo.');
-    
-        $form->addText('year', 'Rok vydání:')
-            ->setRequired('Zadejte rok vydání.')
-            ->addRule(Form::INTEGER, 'Rok vydání musí být číslo.')
-            ->addRule(Form::MIN, 'Rok vydání musí být větší než 1000.', 1000);
-    
-        $form->addText('description', 'Popisek:')
-            ->setRequired('Zadejte popisek knihy.');
-    
-        // Přidání výběru kategorie
-        $form->addSelect('category', 'Kategorie:', [
-            1 => 'Klasická literatura',
-            2 => 'Sci-fi / Dystopie',
-            3 => 'Psychologie / Romány',
-            4 => 'Dobrodružné příběhy',
-            5 => 'Fantasy',
-            6 => 'Thriller / Detektivky',
-            7 => 'Filozofie / Duchovní',
-        ])->setRequired('Vyberte kategorii.');
-    
-        $form->addSubmit('send', 'Přidat knihu');
-    
-        $form->onSuccess[] = [$this, 'addBookSucceeded'];
-    
-        return $form;
-    }
-    
-    public function addBookSucceeded(Form $form, \stdClass $values): void
-    {
-        $id = $this->getParameter('id');
-       
-        if ($id) {
-            $book = $this->database->table('books')->get($id);
+{
+    $form = new Form;
+
+    $form->addText('title', 'Název knihy:')
+        ->setRequired('Zadejte název knihy.');
+
+    $form->addText('author', 'Autor:')
+        ->setRequired('Zadejte autora knihy.');
+
+    $form->addText('price', 'Cena:')
+        ->setRequired('Zadejte cenu knihy.')
+        ->addRule(Form::FLOAT, 'Cena musí být číslo.')
+        ->setHtmlAttribute('placeholder', 'Např. 199.99');
+
+    $form->addText('year', 'Rok vydání:')
+        ->setRequired('Zadejte rok vydání.')
+        ->addRule(Form::INTEGER, 'Rok vydání musí být číslo.')
+        ->addRule(Form::MIN, 'Rok vydání musí být větší než 1000.', 1000);
+
+    $form->addTextArea('description', 'Popisek:')
+        ->setRequired('Zadejte popisek knihy.')
+        ->addRule(Form::MIN_LENGTH, 'Popis musí mít alespoň 20 znaků.', 20);
+
+    // Přidání výběru kategorie
+    $form->addSelect('category', 'Kategorie:', [
+        1 => 'Klasická literatura',
+        2 => 'Sci-fi / Dystopie',
+        3 => 'Psychologie / Romány',
+        4 => 'Dobrodružné příběhy',
+        5 => 'Fantasy',
+        6 => 'Thriller / Detektivky',
+        7 => 'Filozofie / Duchovní',
+    ])->setRequired('Vyberte kategorii.');
+
+    $form->addSubmit('send', 'Přidat knihu');
+
+    $form->onSuccess[] = [$this, 'addBookSucceeded'];
+
+    return $form;
+}
+
+public function addBookSucceeded(Form $form, \stdClass $values): void
+{
+    $id = $this->getParameter('id');
+   
+    if ($id) {
+        $book = $this->database->table('books')->get($id);
+        if ($book) {
             $book->update([
                 'title' => $values->title,
                 'author' => $values->author,
@@ -84,26 +87,27 @@ class BookPresenter extends Nette\Application\UI\Presenter
                 'description' => $values->description,
                 'category_id' => $values->category,
             ]);
-    
+
             $this->flashMessage('Kniha byla úspěšně upravena.');
             $this->redirect('Dashboard:default');
-        }
-        else{
-            $this->database->table('books')->insert([
-                'title' => $values->title,
-                'author' => $values->author,
-                'price' => $values->price,
-                'year' => $values->year,
-                'description' => $values->description,
-                'category_id' => $values->category, // Uložení ID kategorie
-                ]);
-        
-            $this->flashMessage('Kniha byla úspěšně přidána.');
+        } else {
+            $this->flashMessage('Kniha s tímto ID nebyla nalezena.', 'error');
             $this->redirect('Dashboard:default');
-            }
-       
-        
+        }
+    } else {
+        $this->database->table('books')->insert([
+            'title' => $values->title,
+            'author' => $values->author,
+            'price' => $values->price,
+            'year' => $values->year,
+            'description' => $values->description,
+            'category_id' => $values->category, // Uložení ID kategorie
+        ]);
+
+        $this->flashMessage('Kniha byla úspěšně přidána.');
+        $this->redirect('Dashboard:default');
     }
+}
 
 
 

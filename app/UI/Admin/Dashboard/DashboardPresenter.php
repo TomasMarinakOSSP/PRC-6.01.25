@@ -52,10 +52,13 @@ final class DashboardPresenter extends Nette\Application\UI\Presenter
     
         // Sloupec pro kategorii (s vazbou na tabulku category)
         $grid->addColumnText('category', 'Kategorie')
-            ->setRenderer(function ($item) {
-                return $item->category->name ?? '-';
-            })
-            ->setSortable();
+    ->setRenderer(function ($item) {
+        // Předpokládám, že $item je záznam z tabulky books a má vztah k tabulce categories
+        $category = $this->database->table('category')->get($item->category_id);
+        return $category ? $category->category_name : '-';
+    })
+    ->setSortable('category_id'); // Řazení podle sloupce category_id
+    
     
         // Akce - například upravit knihu
         $grid->addAction('edit', 'Upravit', 'Book:editBook', ['id' => 'id'])
