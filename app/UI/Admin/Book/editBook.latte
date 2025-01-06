@@ -9,7 +9,7 @@
 <form n:name="addBookForm" method="post" enctype="multipart/form-data">
     <div class="mb-3">
          <label for="title" class="form-label">Název knihy:</label>
-        <input type="text" name="title" class="form-control" autocomplete="off">
+        <input type="text" name="title" class="form-control" value="{$book->title}">
     </div>
 
     <div class="mb-3">
@@ -27,27 +27,27 @@
         </div>
         <div id="editor-container" style="height: 200px; border: 1px solid #ccc;"></div>
         <!-- Skrytý input pro uložení obsahu Quill -->
-<textarea id="description" name="description" style="visibility: hidden; height: 0;" ></textarea>
+<textarea id="description" name="description" style="visibility: hidden; height: 0;" >{$book->description}</textarea>
     </div>
 
     <div class="mb-3">
         <label for="author" class="form-label">Autor:</label>
-        <input type="text" name="author" class="form-control" autocomplete="off">
+        <input type="text" name="author" class="form-control" value="{$book->author}">
     </div>
 
     <div class="mb-3">
         <label for="price" class="form-label">Cena:</label>
-        <input type="text" name="price" class="form-control" autocomplete="off">
+        <input type="text" name="price" class="form-control" value="{$book->price}">
     </div>
     
     <div class="mb-3">
         <label for="year" class="form-label">Rok vydání:</label>
-        <input type="date" name="year" class="form-control" autocomplete="off">
+        <input type="date" name="year" class="form-control" autocomplete="off" value="{$book->year}">
     </div>
 
     <div class="mb-3">
     <label for="category" class="form-label">Kategorie:</label>
-        <select name="category" class="form-control" required>
+        <select name="category" class="form-control" value="{$book->category}">
             <option value="">Vyberte kategorii</option>
             <option value="1">Klasická literatura</option>
             <option value="2">Sci-fi / Dystopie</option>
@@ -69,18 +69,24 @@ document.querySelector('form').addEventListener('submit', function (e) {
     console.log("Odesílání formuláře...", descriptionInput.value); // Debugging
 });
 
-    var quill = new Quill('#editor-container', {
-        theme: 'snow', // Styl editoru
-        modules: {
-            toolbar: '#toolbar' // Nástroje
-        }
-    });
+var quill = new Quill('#editor-container', {
+    theme: 'snow', // Styl editoru
+    modules: {
+        toolbar: '#toolbar' // Nástroje
+    }
+});
 
-    // Synchronizace obsahu Quill s textarea při odeslání formuláře
-    document.querySelector('form').addEventListener('submit', function (e) {
-        // Najde textarea a vloží do ní obsah z Quill editoru
-        const descriptionInput = document.getElementById('description');
-        descriptionInput.value = quill.root.innerHTML;
-    });
+var description = `{$book->description|escapeJs}`;
+description = description.replace(/^"|"$/g, ''); // Odstranění uvozovek na začátku a na konci
+description = description.replace(/\\\//g, '/'); // Odstranění zpětných lomítek
+description = description.replace(/^"|"$/g, ''); // Odstranění uvozovek na začátku a na konci znovu pro jistotu
+quill.clipboard.dangerouslyPasteHTML(description);
+
+// Synchronizace obsahu Quill s textarea při odeslání formuláře
+document.querySelector('form').addEventListener('submit', function (e) {
+    // Najde textarea a vloží do ní obsah z Quill editoru
+    const descriptionInput = document.getElementById('description');
+    descriptionInput.value = quill.root.innerHTML;
+});
 </script>
 {/block}
