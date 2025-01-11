@@ -66,10 +66,9 @@ final class DashboardPresenter extends Nette\Application\UI\Presenter
             ->setClass('btn btn-sm btn-primary');
     
         // Akce - smazat knihu
-        $grid->addAction('delete', 'Smazat', 'Book:delete', ['id' => 'id'])
-            ->setIcon('trash')
-            ->setClass('btn btn-sm btn-danger');
-;
+        $grid->addAction('delete', 'Smazat', 'deleteBook!')
+        ->setIcon('trash')
+        ->setClass('btn btn-sm btn-danger');
     
         return $grid;
     }

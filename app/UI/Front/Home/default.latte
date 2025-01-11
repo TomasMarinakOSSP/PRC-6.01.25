@@ -1,7 +1,20 @@
 {block content}
-<h1>Front Page</h1>
-
+<h1><a n:href="Home:default">Front Page</a></h1>
+<a n:href=":Admin:Dashboard:default">Admin page</a>
 <p>(<a n:href="Sign:out">Sign out</a>)</p>
+
+<h2>Filtrování</h2>
+<form n:name="filterForm">
+    <div class="mb-3">
+        <label for="author" class="form-label">Autor:</label>
+        <input type="text" name="author" class="form-control" placeholder="Zadejte autora">
+    </div>
+    <div class="mb-3">
+        <label for="year" class="form-label">Rok vydání:</label>
+        <input type="text" name="year" class="form-control" placeholder="Zadejte rok vydání">
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrovat</button>
+</form>
 
 <h2>Seznam knih</h2>
 <ul>

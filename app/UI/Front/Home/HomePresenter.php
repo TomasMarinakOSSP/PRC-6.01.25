@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\UI\Front\Home;
+use Nette\Application\UI\Form;
 
 use Nette;
 
@@ -17,9 +18,44 @@ final class HomePresenter extends Nette\Application\UI\Presenter
 		private Nette\Database\Explorer $database,
 	) {
 	}
-	public function renderDefault(): void
+	public function renderDefault(string $author = null, string $year = null): void
     {
-        $this->template->books = $this->database->table('books')->fetchAll();
+        $books = $this->database->table('books');
+
+        if ($author) {
+            $books->where('author LIKE ?', "%$author%");
+        }
+
+        if ($year) {
+            $books->where('YEAR(year) = ?', $year);
+        }
+
+        $this->template->books = $books->fetchAll();
+    }
+
+    protected function createComponentFilterForm(): Form
+    {
+        $form = new Form;
+
+        $form->addText('author', 'Autor:')
+            ->setHtmlAttribute('placeholder', 'Zadejte autora');
+
+        $form->addText('year', 'Rok vydání:')
+            ->setHtmlAttribute('placeholder', 'Zadejte rok vydání');
+
+        $form->addSubmit('filter', 'Filtrovat');
+
+        $form->onSuccess[] = [$this, 'filterFormSucceeded'];
+
+        return $form;
+    }
+
+    public function filterFormSucceeded(Form $form, \stdClass $values): void
+    {
+        $this->redirect('this', [
+            'author' => $values->author,
+            'year' => $values->year,
+        ]);
     }
 	// Incorporates methods to check user login status
 	

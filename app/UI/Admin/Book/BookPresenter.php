@@ -45,10 +45,10 @@ class BookPresenter extends Nette\Application\UI\Presenter
         ->addRule(Form::FLOAT, 'Cena musí být číslo.')
         ->setHtmlAttribute('placeholder', 'Např. 199.99');
 
-    $form->addText('year', 'Rok vydání:')
+        $form->addText('year', 'Rok vydání:')
         ->setRequired('Zadejte rok vydání.')
-        ->addRule(Form::INTEGER, 'Rok vydání musí být číslo.')
-        ->addRule(Form::MIN, 'Rok vydání musí být větší než 1000.', 1000);
+        ->addRule(Form::PATTERN, 'Rok vydání musí být ve formátu YYYY-MM-DD.', '\d{4}-\d{2}-\d{2}')
+        ->setHtmlType('date');
 
     $form->addTextArea('description', 'Popisek:')
         ->setRequired('Zadejte popisek knihy.')
