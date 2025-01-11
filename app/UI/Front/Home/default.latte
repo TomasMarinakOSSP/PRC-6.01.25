@@ -20,7 +20,7 @@
 <ul>
 {foreach $books as $book}
     <li>
-        <strong>{$book->title}</strong><br>
+        <strong><a n:href="Detail:default , $book->id">{$book->title}</a></strong><br>
         Autor: {$book->author}<br>
         Cena: {$book->price} Kč<br>
         Rok vydání: {$book->year|date:'Y'}<br>

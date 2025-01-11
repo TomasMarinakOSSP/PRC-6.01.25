@@ -1,0 +1,16 @@
+{block content}
+<h1>Detail knihy</h1>
+<a n:href=":Front:Home:default">Zpět na seznam knih</a>
+{if $book}
+    <ul>
+        <li><strong>Název:</strong> {$book->title}</li>
+        <li><strong>Autor:</strong> {$book->author}</li>
+        <li><strong>Cena:</strong> {$book->price} Kč</li>
+        <li><strong>Kategorie:</strong> {$book->category_id}</li>
+        <li><strong>Rok vydání:</strong> {$book->year|date:'Y-m-d'}</li>
+        <li><strong>Popis:</strong> {$book->description}</li>
+    </ul>
+{else}
+    <p>Kniha nebyla nalezena.</p>
+{/if}
+{/block}

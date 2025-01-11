@@ -65,7 +65,7 @@ class BookPresenter extends Nette\Application\UI\Presenter
         7 => 'Filozofie / Duchovní',
     ])->setRequired('Vyberte kategorii.');
 
-    $form->addSubmit('send', 'Přidat knihu');
+    $form->addSubmit('send', 'Odeslat');
 
     $form->onSuccess[] = [$this, 'addBookSucceeded'];
 
