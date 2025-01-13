@@ -9,9 +9,11 @@
     </a>
         </h1>
         <div>
-            <a n:href=":Admin:Dashboard:default" class="btn btn-outline-secondary me-2">
-                Admin page
-            </a>
+{if $user->isInRole('admin')}
+    <a n:href=":Admin:Dashboard:default" class="btn btn-outline-secondary me-2">
+        Admin page
+    </a>
+{/if}
             <a n:href="Sign:out" class="btn btn-outline-danger">
                 Sign out
             </a>
