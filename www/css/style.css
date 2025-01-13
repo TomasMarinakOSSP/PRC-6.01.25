@@ -1,3 +1,24 @@
+/* Light brown background utility to match front page */
+.bg-lightbrown {
+    background-color: #f5f0e6 !important;
+  }
+  
+  /* Example: If you want a slightly darker brown, you could do:
+  .bg-lightbrown {
+    background-color: #e2d4c2 !important;
+  } */
+  
+  /* The rest of your existing styles */
+  body {
+    background-color: #f5f0e6;  /* or your chosen color */
+  }
+  
+  .library-background {
+    background-color: #f5f0e6;
+    padding: 1rem;
+    border-radius: 0.25rem;
+  }
+
 /* ------------------------------- */
 /*     Globální pozadí            */
 /* ------------------------------- */
