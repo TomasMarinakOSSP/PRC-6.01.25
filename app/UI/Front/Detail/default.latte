@@ -1,16 +1,55 @@
 {block content}
-<h1>Detail knihy</h1>
-<a n:href=":Front:Home:default">Zpět na seznam knih</a>
-{if $book}
-    <ul>
-        <li><strong>Název:</strong> {$book->title}</li>
-        <li><strong>Autor:</strong> {$book->author}</li>
-        <li><strong>Cena:</strong> {$book->price} Kč</li>
-        <li><strong>Kategorie:</strong> {$book->category_id}</li>
-        <li><strong>Rok vydání:</strong> {$book->year|date:'Y-m-d'}</li>
-        <li><strong>Popis:</strong> {$book->description}</li>
-    </ul>
-{else}
-    <p>Kniha nebyla nalezena.</p>s
-{/if}
+<div class="container my-4">
+    
+    <!-- Drobečková navigace (breadcrumb) -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a n:href=":Front:Home:default" class="text-decoration-none">Seznam knih</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Detail knihy</li>
+        </ol>
+    </nav>
+    
+    <h1 class="mb-4">Detail knihy</h1>
+    
+    {if $book}
+        <!-- Karta s detailem knihy -->
+        <!-- Třídu fade-in-up použij, pokud chceš vlastní animaci (definovanou v CSS) -->
+        <div class="card shadow-sm fade-in-up">
+            <div class="card-body">
+                <h4 class="card-title mb-3">
+                    <strong>{$book->title}</strong>
+                </h4>
+                <h6 class="card-subtitle text-muted mb-3">
+                    Autor: {$book->author}
+                </h6>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <strong>Cena:</strong> {$book->price} Kč
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Kategorie:</strong> {$book->category_id}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Rok vydání:</strong> {$book->year|date:'Y-m-d'}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Popis:</strong> {$book->description}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {else}
+        <p class="text-danger">Kniha nebyla nalezena.</p>
+    {/if}
+
+    <!-- Tlačítko zpět (vpravo dole) -->
+    <div class="d-flex justify-content-end mt-4">
+        <a n:href=":Front:Home:default" class="btn btn-outline-primary">
+            &larr; Zpět na seznam knih
+        </a>
+    </div>
+
+</div>
 {/block}
