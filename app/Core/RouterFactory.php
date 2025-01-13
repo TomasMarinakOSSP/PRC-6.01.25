@@ -19,7 +19,7 @@ final class RouterFactory
 	{
 		$router = new RouteList;
 		        // Admin modul
-				$adminRouter = new RouteList('admin');
+				$adminRouter = new RouteList('Admin');
 				$adminRouter->addRoute('admin/<presenter>/<action>[/<id>]', 'Dashboard:default');
 				$router->add($adminRouter);
 		

@@ -5,11 +5,6 @@ parameters:
 
 application:
 	# Presenter mapping pattern
-	mapping: App\UI\*\**Presenter
+	mapping:
+		*: App\UI\*\**Presenter
 
-
-database:
-	# SQLite database source location
-	dsn: 'sqlite:%rootDir%/data/db.sqlite'
-	user:
-	password:
