@@ -1,32 +1,72 @@
 {block content}
-<h1><a n:href="Home:default">Front Page</a></h1>
-<a n:href=":Admin:Dashboard:default">Admin page</a>
-<p>(<a n:href="Sign:out">Sign out</a>)</p>
+<div class="container my-4 library-background">
 
-<h2>Filtrování</h2>
-<form n:name="filterForm">
-    <div class="mb-3">
-        <label for="author" class="form-label">Autor:</label>
-        <input type="text" name="author" class="form-control" placeholder="Zadejte autora">
+    <!-- Hlavička stránky -->
+    <div class="d-flex justify-content-between align-items-center mb-4 library-header">
+       <h1 class="h3 mb-0">
+    <a n:href="Home:default" class="text-decoration-none text-white">
+        Front Page
+    </a>
+        </h1>
+        <div>
+            <a n:href=":Admin:Dashboard:default" class="btn btn-outline-secondary me-2">
+                Admin page
+            </a>
+            <a n:href="Sign:out" class="btn btn-outline-danger">
+                Sign out
+            </a>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="year" class="form-label">Rok vydání:</label>
-        <input type="text" name="year" class="form-control" placeholder="Zadejte rok vydání">
-    </div>
-    <button type="submit" class="btn btn-primary">Filtrovat</button>
-</form>
 
-<h2>Seznam knih</h2>
-<ul>
-{foreach $books as $book}
-    <li>
-        <strong><a n:href="Detail:default , $book->id">{$book->title}</a></strong><br>
-        Autor: {$book->author}<br>
-        Cena: {$book->price} Kč<br>
-        Rok vydání: {$book->year|date:'Y'}<br>
-        Popis: {$book->description}<br>
-        Kategorie: {$book->category->category_name}
-    </li>
-{/foreach}
-</ul>
+    <!-- Filtrování -->
+    <section class="mb-5 library-filter">
+        <h2 class="mb-3">Filtrování</h2>
+        <form n:name="filterForm" class="row g-3">
+            <div class="col-md-6">
+                <label for="author" class="form-label">Autor:</label>
+                <input type="text" name="author" class="form-control" placeholder="Zadejte autora">
+            </div>
+            <div class="col-md-6">
+                <label for="year" class="form-label">Rok vydání:</label>
+                <input type="text" name="year" class="form-control" placeholder="Zadejte rok vydání">
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    Filtrovat
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Seznam knih -->
+    <section>
+        <h2 class="mb-4">Seznam knih</h2>
+        <div class="row">
+            {foreach $books as $book}
+                <div class="col-md-4 col-sm-6 mb-4 fade-in-up">
+                    <div class="card h-100 zoomable">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a n:href="Detail:default , $book->id" 
+                                   class="text-decoration-none text-dark fw-bold">
+                                    {$book->title}
+                                </a>
+                            </h5>
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                Autor: {$book->author}
+                            </h6>
+                            <p class="card-text">
+                                <strong>Cena:</strong> {$book->price} Kč<br>
+                                <strong>Rok vydání:</strong> {$book->year|date:'Y'}<br>
+                                <strong>Popis:</strong> {$book->description}<br>
+                                <strong>Kategorie:</strong> {$book->category->category_name}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {/foreach}
+        </div>
+    </section>
+
+</div>
 {/block}

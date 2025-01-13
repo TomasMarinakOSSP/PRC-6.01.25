@@ -1,0 +1,97 @@
+/* Light brown background utility to match front page */
+.bg-lightbrown {
+    background-color: #f5f0e6 !important;
+  }
+  
+  /* Example: If you want a slightly darker brown, you could do:
+  .bg-lightbrown {
+    background-color: #e2d4c2 !important;
+  } */
+  
+  /* The rest of your existing styles */
+  body {
+    background-color: #f5f0e6;  /* or your chosen color */
+  }
+  
+  .library-background {
+    background-color: #f5f0e6;
+    padding: 1rem;
+    border-radius: 0.25rem;
+  }
+
+/* ------------------------------- */
+/*     Globální pozadí            */
+/* ------------------------------- */
+body {
+    /* Pokud chceš hnědé pozadí úplně všude */
+    background-color: #f5f0e6;  /* světle hnědá / krémová */
+  }
+  
+  /* Pokud chceš výraznější tmavší hnědou: */
+  /* body {
+      background-color: #e2d4c2; 
+  } */
+  
+  /* ------------------------------- */
+  /*     Kontejner s třídou .library-background  */
+  /*     Pokud chceš jen určitý box hnědý, můžeš stylovat přímo tuto třídu. */
+  /* ------------------------------- */
+  .library-background {
+    background-color: #f5f0e6;  /* sladěné s tématem knihovny */
+    padding: 1rem;
+    border-radius: 0.25rem;
+  }
+  
+  /* ------------------------------- */
+  /*     Hlavička                    */
+  /* ------------------------------- */
+  .library-header {
+    background: linear-gradient(135deg, #694703, #6b4803);
+    padding: 1rem;
+    border-radius: 0.25rem;
+  }
+  
+  /* ------------------------------- */
+  /*     Filtrovací sekce            */
+  /* ------------------------------- */
+  .library-filter {
+    background-color: #fff; /* světlá barva uvnitř filtru */
+    border-radius: 0.25rem;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  /* ------------------------------- */
+  /*     Animace: Fade-in-up         */
+  /* ------------------------------- */
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .fade-in-up {
+    animation: fadeInUp 0.6s ease-in-out forwards;
+    opacity: 0;
+  }
+  
+  /* ------------------------------- */
+  /*     Efekt zvětšení karty (hover)*/
+  /* ------------------------------- */
+  .zoomable {
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .zoomable:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+  }
+  
+  /* Přidat další případné barvy, styly, atd. */
+  
